@@ -43,16 +43,71 @@ stream | 使用指定的流初始化StreamHandler，与filename不相容
 handlers | 如果指定，参数为创建好的handler所组成的迭代器，这些迭代器会被添加到root logger中，此参数与filename或stream不兼容
 
 ## Logger
+    logger不应直接实例化，应通过模块函数logging.getLogger(name)
+```python
+logger = logging.getLogger(__name__)
+#建议以模块名命名logger
+#debug(), info(), warning(), error() critical()与rootlogger相同
+#默认格式severity:logger name:message
+
+Logger.setLevel()
+#设置日志记录级别
+
+Logger.addHandler()
+Logger.removeHandler()
+#添加handler
+
+Logger.addFilter()
+Logger.removeFilter()
+#添加过滤器
 
 
 
+```
 
+## Handler
 
+    用于定义处理日志消息的方式，应实例化其子类
 
+```python
+setLevel(level)
 
+setFormatter(fmt)
+#fmt=logging.Formatter
 
+addFilter(filter)
+removeFilter(filter)
 
+logging.StreamHandler(stream=None)
+#将日志记录输出发送到标准输出
 
+logging.FileHandler(filename, mode='a', encoding=None, delay=False)
+#将日志输出到文件
 
+logging.handlers.WatchedFileHandler(filename, mode='a', encoding=None, delay=False)
+#它监视要记录的文件。 如果文件发生更改，则会关闭该文件并使用文件名重新打开。只适用于Unix / Linux
 
+logging.handlers.RotatingFileHandler(filename, mode='a', maxBytes=0, backupCount=0, encoding=None, delay=False)
+#日志文件轮转
+
+logging.handlers.TimedRotatingFileHandler(filename, when='h', interval=1, backupCount=0, encoding=None, delay=False, utc=False, atTime=None)
+#按时间周期记录日志
+#when可选参数s,m,h,d(秒分时天),w0-w6,midnight
+#interval表示翻转时覆盖的文件序号，1表示覆盖最早的文件
+#backupCount指定备份数量
+#utc参数为true，则使用UTC时间; 否则使用当地时间
+#atTime需指定datetime.time对象
+
+```
+>Handler还支持Queue,socket,http,Memory,smtp,NTEvent,SysLog等方式
+
+## Formatter
+
+```python
+logging.Formatter(fmt=None, datefmt=None, style='%')
+```
+
+实例
+
+[Logging Cookbook](https://docs.python.org/3/howto/logging-cookbook.html)
 
