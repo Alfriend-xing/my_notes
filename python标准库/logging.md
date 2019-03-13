@@ -30,6 +30,7 @@ logging.warning('is when this event was logged.')
 ```
 
 basicConfig(**kwargs)
+
 格式 | 描述
 -----|-----
 filename | 保存日志的文件名
