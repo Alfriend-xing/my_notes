@@ -105,6 +105,19 @@ logging.handlers.TimedRotatingFileHandler(filename, when='h', interval=1, backup
 
 ```python
 logging.Formatter(fmt=None, datefmt=None, style='%')
+# datefmt参数的格式与 time.strftime() 支持的格式相同
+# 有用的format格式
+%(levelno)s     # 打印日志级别的数值
+%(levelname)s   # 打印日志级别名称
+%(pathname)s    # 打印当前执行程序的路径
+%(filename)s    # 打印当前执行程序名称
+%(funcName)s    # 打印日志的当前函数
+%(lineno)d      # 打印日志的当前行号
+%(asctime)s     # 打印日志的时间
+%(thread)d      # 打印线程id
+%(threadName)s  # 打印线程名称
+%(process)d     # 打印进程ID
+%(message)s     # 打印日志信息
 ```
 
 实例
