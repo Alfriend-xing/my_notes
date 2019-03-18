@@ -1,5 +1,9 @@
 ﻿# bootstrap4
 
+---
+[TOC]
+---
+
 ## 添加方式
 ```html
 在head标签中添加
@@ -754,7 +758,241 @@ Secondary Success Danger Warning Info Light Dark
 ```
 ## 工具
 
-http://bs4.ntp.org.cn/pages/utilities.html
+### 边框
+```html
+加
+<span class="border"></span>
+<span class="border-top"></span>
+<span class="border-right"></span>
+<span class="border-bottom"></span>
+<span class="border-left"></span>
+减
+<span class="border-0"></span>
+<span class="border-top-0"></span>
+<span class="border-right-0"></span>
+<span class="border-bottom-0"></span>
+<span class="border-left-0"></span>
+颜色
+<span class="border border-primary"></span>
+Secondary Success Danger Warning Info Light Dark
+圆角边框
+<img src="..." alt="..." class="rounded">
+<img src="..." alt="..." class="rounded-top">
+```
+### 清除浮动
+>个人认为叫完全浮动才合适，用于使容器完全包裹内部的浮动元素
+```html
+<div class="bg-info clearfix">
+  <button type="button" class="btn btn-secondary float-left">Example Button floated left</button>
+  <button type="button" class="btn btn-secondary float-right">Example Button floated right</button>
+</div>
+```
+### 关闭图表
+>用于关闭提醒框(页面内部弹窗)和对话框(页面弹窗)
+```html
+<button type="button" class="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+```
+### 颜色
+```html
+文字颜色
+<p class="text-primary">.text-primary</p>
+背景颜色
+<div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
+```
+### 显示(display)属性
+```html
+.d-{value}
+.d-{breakpoint}-{value}
+
+value可选值：
+隐藏元素
+none
+内联元素 
+inline
+内联块级元素
+inline-block
+块级元素
+block
+table
+table-cell
+table-row
+flex
+inline-flex
+```
+### 嵌入元素
+```html
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+</div>
+16by9为自定义宽高比(21by9,4by3,4by3)
+```
+### 弹性布局
+```html
+创建flex
+.d-flex
+.d-inline-flex
+.d-{breakpoint}-flex
+.d-{breakpoint}-inline-flex
+
+方向
+由左向右排列(.flex-row)
+<div class="d-flex flex-row bd-highlight mb-3"></div>
+右到左(.flex-row-reverse)
+<div class="d-flex flex-row-reverse bd-highlight"></div>
+上到下
+flex-column
+下到上
+flex-column-reverse
+
+位置
+水平位置(.justify-content)
+<div class="d-flex justify-content-start">...</div>
+end center between(元素之间留白) around(元素前后和之间留白)
+垂直位置(.flex-direction-)
+flex-direction-{value}
+
+对齐
+垂直对齐方式(.align-items)
+<div class="d-flex align-items-start">...</div>
+align-items-start end center baseline stretch
+自身对齐(.align-self-)
+<div class="align-self-start">Aligned flex item</div>
+end center baseline stretch
+
+填充(.flex-fill)
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+</div>
+
+伸缩(.flex-grow- .flex-shrink-)
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-grow-1 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Third flex item</div>
+</div>
+<div class="d-flex bd-highlight">
+  <div class="p-2 w-100 bd-highlight">Flex item</div>
+  <div class="p-2 flex-shrink-1 bd-highlight">Flex item</div>
+</div>
+
+排序
+<div class="d-flex flex-nowrap bd-highlight">
+  <div class="order-3 p-2 bd-highlight">First flex item</div>
+  <div class="order-2 p-2 bd-highlight">Second flex item</div>
+  <div class="order-1 p-2 bd-highlight">Third flex item</div>
+</div>
+
+多行对齐
+<div class="d-flex align-content-start flex-wrap">
+  ...
+</div>
+```
+### 浮动
+```html
+.float-{value}
+.float-{breakpoint}-{value}
+
+<div class="float-left">Float left on all viewport sizes</div><br>
+<div class="float-right">Float right on all viewport sizes</div><br>
+<div class="float-none">Don't float on all viewport sizes</div>
+```
+### 内容溢出
+```html
+<div class="overflow-auto">...</div>
+<div class="overflow-hidden">...</div>
+```
+### 定位
+```html
+通用属性
+<div class="position-static">...</div>
+<div class="position-relative">...</div>
+<div class="position-absolute">...</div>
+<div class="position-fixed">...</div>
+<div class="position-sticky">...</div>
+
+固定在顶部
+<div class="fixed-top">...</div>
+固定在底部
+<div class="fixed-bottom">...</div>
+
+粘性置顶
+.sticky-top
+```
+### 屏幕阅读器
+```html
+使用screenreader工具隐藏除屏幕阅读器之外的所有设备上的元素
+.sr-only
+```
+### 阴影
+```html
+Bootstrap 中默认禁用组件上的阴影,需要通过启用 $enable-shadows
+<div class="shadow-none p-3 mb-5 bg-light rounded">No shadow</div>
+<div class="shadow-sm p-3 mb-5 bg-white rounded">Small shadow</div>
+<div class="shadow p-3 mb-5 bg-white rounded">Regular shadow</div>
+<div class="shadow-lg p-3 mb-5 bg-white rounded">Larger shadow</div>
+```
+### 尺寸
+```html
+宽和高
+<div class="w-25 p-3" style="background-color: #eee;">Width 25%</div>
+<div class="w-50 p-3" style="background-color: #eee;">Width 50%</div>
+<div class="w-75 p-3" style="background-color: #eee;">Width 75%</div>
+<div class="w-100 p-3" style="background-color: #eee;">Width 100%</div>
+<div class="w-auto p-3" style="background-color: #eee;">Width auto</div>
+<div style="height: 100px; background-color: rgba(255,0,0,0.1);">
+  <div class="h-25 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 25%</div>
+  <div class="h-50 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 50%</div>
+  <div class="h-75 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 75%</div>
+  <div class="h-100 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 100%</div>
+  <div class="h-auto d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height auto</div>
+</div>
+
+设置最大值(max-width: 100%; and max-height: 100%;)
+class="mw-100"
+class="mh-100"
+```
+### 文本对齐
+```html
+text-justify
+text-left(right,center)
+
+让文本不换行
+text-nowrap
+截掉多余内容(块级元素)
+text-truncate
+截掉多余内容(行内元素)
+d-inline-block text-truncate
+
+其他
+<p class="text-lowercase">Lowercased text.</p>
+<p class="text-uppercase">Uppercased text.</p>
+<p class="text-capitalize">CapiTaliZed text.</p>
+<p class="font-weight-bold">Bold text.</p>
+<p class="font-weight-normal">Normal weight text.</p>
+<p class="font-weight-light">Light weight text.</p>
+<p class="font-italic">Italic text.</p>
+<p class="text-monospace">This is in monospace</p>
+```
+### 可见性
+>与display的区别在于invisible时元素仍占据空间
+```html
+<div class="visible">...</div>
+<div class="invisible">...</div>
+```
+### 图标
+```html
+<span class="glyphicon glyphicon-search"></span>
+当作文字用
+```
+>bootstrap4默认不提供图标[link](https://getbootstrap.com/docs/4.3/migration/#components)，用其他图标还要引入新文件
+也许打算卖图标盈利
+[bootstrap3的图标](https://getbootstrap.com/docs/3.4/components/#glyphicons-glyphs)
+而且bs3文档比bs4更易读
+
 
 
 
