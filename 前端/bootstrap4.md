@@ -1,10 +1,7 @@
 ﻿# bootstrap4
 
 ---
-
-[TOC]
-
----
+[toc]
 
 ## 添加方式
 ```html
