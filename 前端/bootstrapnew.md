@@ -486,10 +486,116 @@ p-3表示内边框(padding)3rem宽
 -->
 ```
 ### 弹性容器flex
+```html
+<!--创建弹性容器(块级元素弹性容器，内联元素弹性容器)-->
+<div class="d-flex p-2 bd-highlight">I'm a flexbox container!</div>
+<div class="d-inline-flex p-2 bd-highlight">I'm an inline flexbox container!</div>
+
+<!--单行排列内部元素，无视其是否有块级属性-->
+<div class="d-flex flex-row"></div>
+<!--从右排列-->
+<div class="d-flex flex-row-reverse"></div>
+
+<!--按列排列内部元素，无视其是否有块级属性-->
+<div class="d-flex flex-column"></div>
+<div class="d-flex flex-column-reverse"></div>
+
+<!--水平分布内部元素-->
+<div class="d-flex justify-content-start">...</div>
+<div class="d-flex justify-content-end">...</div>
+<div class="d-flex justify-content-center">...</div>
+<div class="d-flex justify-content-between">...</div>
+<div class="d-flex justify-content-around">...</div>
+
+<!--垂直分布内部元素-->
+<div class="d-flex align-items-start">...</div>
+<div class="d-flex align-items-end">...</div>
+<div class="d-flex align-items-center">...</div>
+<div class="d-flex align-items-baseline">...</div>
+<div class="d-flex align-items-stretch">...</div>
+
+<!--扩展元素宽度填满一行-->
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-fill bd-highlight">Flex item with a lot of content</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+</div>
+
+```
 
 ### 浮动布局float
+```html
+<!--靠左靠右 无浮动-->
+<div class="float-left">Float left on all viewport sizes</div><br>
+<div class="float-right">Float right on all viewport sizes</div><br>
+<div class="float-none">Don't float on all viewport sizes</div>
+```
 
 ### 固定位置fixed
+```html
+<div class="fixed-top">...</div>
+<div class="fixed-bottom">...</div>
+```
+### 粘贴
+```html
+<div class="sticky-top">...</div>
+```
+### 内容溢出
+```html
+<div class="overflow-auto">...</div>
+<div class="overflow-hidden">...</div>
+```
+### 尺寸
+```html
+<!--宽-->
+<div class="w-25 p-3">Width 25%</div>
+<div class="w-50 p-3">Width 50%</div>
+<div class="w-75 p-3">Width 75%</div>
+<div class="w-100 p-3">Width 100%</div>
+<div class="w-auto p-3">Width auto</div>
 
+<!--高-->
+<div style="height: 100px; background-color: rgba(255,0,0,0.1);">
+  <div class="h-25 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 25%</div>
+</div>
 
+<!--最大值-->
+mw-100
+mh-100
+```
+### 间距
+```html
+{property}{sides}-{size} 
+{property}{sides}-{breakpoint}-{size}
 
+property:
+m- margin
+p- padding
+
+sides:
+t- top
+b- bottom
+l- left
+r- right
+x- both *-left and *-right
+y- both *-top and *-bottom
+blank空白- 所有 4 sides
+
+size:
+0-  0
+1- * .25
+2- * .5
+3- 1
+4- * 1.5
+5- * 3
+auto- set the margin to auto
+```
+### 文字处理
+[link](https://getbootstrap.com/docs/4.2/utilities/text/)
+
+### 垂直分布
+[link](https://getbootstrap.com/docs/4.2/utilities/vertical-align/)
+
+---
+经验
+- 使用fixed之后，元素脱离之前的父元素，变为窗口的子元素，设置长宽可以按全屏取百分比
