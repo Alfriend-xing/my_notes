@@ -1,1 +1,74 @@
-﻿
+﻿# mysql
+
+## 
+```shell
+添加 MySQL YUM 源
+wget 'https://dev.mysql.com/get/mysql80-community-release-el7-2.noarch.rpm'
+rpm -Uvh platform-and-version-specific-package-name.rpm
+
+选择发行版本
+查看所有子存储库
+yum repolist all | grep mysql
+禁用8.0 启用5.7版本(默认安装最新版本)
+yum-config-manager --disable mysql80-community
+yum-config-manager --enable mysql57-community
+
+安装MySQL
+yum install mysql-community-server
+
+启动
+systemctl start mysqld.service
+systemctl status mysqld.service
+
+MySQL服务器初始化(从MySQL 5.7开始)
+...
+会自动创建 'root'@'localhost' root账户
+查看密码: grep 'temporary password' /var/log/mysqld.log
+使用临时密码登录: mysql -uroot -p
+修改root密码(mysql shell中):  ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
+
+```
+
+>MySQL的 validate_password 插件默认安装。这将要求密码包含至少一个大写字母，一个小写字母，一个数字和一个特殊字符，并且密码总长度至少为8个字符。
+
+## 基本操作
+```shell
+连接
+mysql -h host -u user -p
+mysql -u user -p
+
+创建数据库
+CREATE DATABASE menagerie;
+
+切换数据库
+SHOW DATABASES;
+USE menagerie
+
+创建数据表
+SHOW TABLES;
+CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20),
+       species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);
+
+显示表结构
+DESCRIBE pet;
+
+查询
+SELECT * FROM pet;
+SELECT * FROM pet WHERE name = 'Bowser';
+SELECT * FROM pet WHERE birth >= '1998-1-1';
+SELECT * FROM pet WHERE species = 'dog' AND sex = 'f';
+SELECT * FROM pet WHERE species = 'snake' OR species = 'bird';
+SELECT * FROM pet WHERE (species = 'cat' AND sex = 'm')
+       OR (species = 'dog' AND sex = 'f');
+SELECT name, birth FROM pet;
+SELECT name, birth FROM pet ORDER BY birth;
+SELECT name, birth FROM pet ORDER BY birth DESC;
+SELECT name, species, birth FROM pet
+       ORDER BY species, birth DESC;
+
+更新
+UPDATE pet SET birth = '1989-08-31' WHERE name = 'Bowser';
+```
+
+[参考链接](https://dev.mysql.com/doc/refman/5.7/en/)
+[参考链接](https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/)
