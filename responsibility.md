@@ -1,4 +1,13 @@
-﻿# 工作技能
+﻿web|css|js|db|mq|server|
+---|---|---|---|---|---|
+flask|bootstrap|jquery|mysql|rabbitmq|nginx
+
+
+
+
+
+
+# 工作技能需求
 
 ## web
 flask django tornado
