@@ -69,6 +69,18 @@ SELECT name, species, birth FROM pet
 更新
 UPDATE pet SET birth = '1989-08-31' WHERE name = 'Bowser';
 ```
+## 主从复制Master-Slave
+优点
+- 在多个从站之间分配负载以提高性能
+- 可以在从站上运行备份服务而不会破坏相应的主数据
+- 可以在主服务器上创建实时数据，而信息的分析可以在从服务器上进行，而不会影响主服务器的性能
+- 远程数据分发，主从复制可以为远程站点创建数据的本地副本，而无需永久访问主服务器
+
+## 读写分离MySQL-Proxy
+
+## 数据库迁移
+
 
 [参考链接](https://dev.mysql.com/doc/refman/5.7/en/)
 [参考链接](https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/)
+[参考链接](https://segmentfault.com/a/1190000008942618)
