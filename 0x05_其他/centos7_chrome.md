@@ -22,7 +22,7 @@ yum install google-chrome-stable --nogpgcheck
 google-chrome --version
 ```
 ## 下载chromedriver
->从https://sites.google.com/a/chromium.org/chromedriver/downloads中找到对应版本的驱动
+>从`https://sites.google.com/a/chromium.org/chromedriver/downloads`中找到对应版本的驱动
 ```shell
 wget https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_linux64.zip
 
