@@ -10,6 +10,9 @@ c = conn.cursor()
 # 创建表
 c.execute('''CREATE TABLE stocks
              (date text, trans text, symbol text, qty real, price real)''')
+# con.execute("create table person (id integer primary key, \
+# firstname varchar unique)")
+
 
 # 插入一行数据
 c.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
@@ -162,12 +165,257 @@ class sqlite3.Cursor
 
 execute(sql[, parameters])
 # 支持两种占位符，问号占位 命名占位
-cur.execute("insert into people values (?, ?)", (who, age))
+cur.execute("insert into people values (?, ?)", ('mike', 20))
+cur.execute("insert into people values (:who, :age)",\
+{"who": 'mike', "age": 20}
+cur.execute("select * from people where name_last=? and age=?",\
+('mike', 20))
 cur.execute("select * from people where name_last=:who and age=:age",\
- {"who": who, "age": age})
+ {"who": 'mike', "age": 20})
+
+executemany(sql, seq_of_parameters)
+# seq_of_parameters可迭代
+
+executescript(sql_script)
+# 执行多条命令的不标准方法，sql_script为```sql1;sql2;sql3```
+
+fetchone()
+# 从查询结果集中取第一条
+
+fetchmany(size=cursor.arraysize)
+# 返回多条结果列表，默认条数为cursor.arraysize，自定义数量建议每次保持不变
+
+fetchall()
+# 返回所有结果
+
+close()
+# 关闭游标
+
+rowcount
+# 受影响的行
+
+lastrowid
+# 只读属性，表示上次修改的行id
+
+arraysize
+# 可读写属性，指定多行获取时返回的结果数，默认1
+
+description
+# 只读属性，提供上次查询的列名
+
+connection
+# 只读属性，引用连接对象
+```
+
+### Row类
+```python
+class sqlite3.Row
+# 用于Connection对象的row_factory属性，指定用于处理行的工厂函数
+# 它支持按列名和索引，迭代，表示，相等性测试和len()进行映射访问。
+
+keys()
+# 返回列名组成的list
+# 在一次查询后，它将是Cursor.description返回元组中的第一个元素
+
+conn.row_factory = sqlite3.Row
+c = conn.cursor()
+c.execute('select * from stocks')   #<sqlite3.Cursor object at 0x7f4e7dd8fa80>
+r = c.fetchone()    #<class 'sqlite3.Row'>
+len(r)  #5
+r[2]    #'RHAT'
+r["date"]
+tuple(r)    #('2006-01-05', 'BUY', 'RHAT', 100.0, 35.14)
+for member in r:
+    print(member)
+# 2006-01-05
+# BUY
+# RHAT
+# 100.0
+# 35.14
+```
+
+### 异常类
+```python
+exception sqlite3.Warning
+# Exception.的子类
+
+exception sqlite3.Error
+# 本模块的异常基类
+
+exception sqlite3.DatabaseError
+# 数据库异常
+
+exception sqlite3.IntegrityError
+# 数据完整性异常
+
+exception sqlite3.ProgrammingError
+# 编程错误引发的异常，如表未找到
+
+exception sqlite3.OperationalError
+# 数据库操作错误
+
+exception sqlite3.NotSupportedError
+# 调用功能不被数据库支持
+```
+## 适配python类型
+有两种方法将python类型存入数据库
+```python
+# 修改对象，自动适配
+import sqlite3
+
+class Point:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+    def __conform__(self, protocol):
+        if protocol is sqlite3.PrepareProtocol:
+            return "%f;%f" % (self.x, self.y)
+
+con = sqlite3.connect(":memory:")
+cur = con.cursor()
+
+p = Point(4.0, -3.2)
+cur.execute("select ?", (p,))
+print(cur.fetchone()[0])
+```
+```python
+# 注册适配函数
+import sqlite3
+
+class Point:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+def adapt_point(point):
+    return "%f;%f" % (point.x, point.y)
+
+sqlite3.register_adapter(Point, adapt_point)
+
+con = sqlite3.connect(":memory:")
+cur = con.cursor()
+
+p = Point(4.0, -3.2)
+cur.execute("select ?", (p,))
+print(cur.fetchone()[0])
+```
+从数据库返回python类型
+```python
+import sqlite3
+
+class Point:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+    def __repr__(self):
+        return "(%f;%f)" % (self.x, self.y)
+
+def adapt_point(point):
+    return ("%f;%f" % (point.x, point.y)).encode('ascii')
+
+def convert_point(s):
+    x, y = list(map(float, s.split(b";")))
+    return Point(x, y)
+
+# Register the adapter注册适配，python类型适配sqlite类型
+sqlite3.register_adapter(Point, adapt_point)
+
+# Register the converter注册转换，sqlite类型转换python类型
+sqlite3.register_converter("point", convert_point)
+
+p = Point(4.0, -3.2)
+#########################
+# 1) Using declared types使用python类型名
+con = sqlite3.connect(":memory:", detect_types=sqlite3.PARSE_DECLTYPES)
+cur = con.cursor()
+cur.execute("create table test(p point)")
+#类名同register_converter的参数，忽略大小写
+
+cur.execute("insert into test(p) values (?)", (p,))
+cur.execute("select p from test")
+print("with declared types:", cur.fetchone()[0])
+cur.close()
+con.close()
+
+#######################
+# 1) Using column names使用列名
+con = sqlite3.connect(":memory:", detect_types=sqlite3.PARSE_COLNAMES)
+cur = con.cursor()
+cur.execute("create table test(p)")
+# 不用指定数据类型吗？
+
+cur.execute("insert into test(p) values (?)", (p,))
+cur.execute('select p as "p [point]" from test') #这里应该是指定了类型
+print("with column names:", cur.fetchone()[0])
+cur.close()
+con.close()
+```
+```python
+# 默认适配和转换
+import sqlite3
+import datetime
+
+con = sqlite3.connect(":memory:", detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
+cur = con.cursor()
+cur.execute("create table test(d date, ts timestamp)")
+
+today = datetime.date.today()
+now = datetime.datetime.now()
+
+cur.execute("insert into test(d, ts) values (?, ?)", (today, now))
+cur.execute("select d, ts from test")
+row = cur.fetchone()
+print(today, "=>", row[0], type(row[0]))
+print(now, "=>", row[1], type(row[1]))
+
+cur.execute('select current_date as "d [date]", current_timestamp as "ts [timestamp]"')
+row = cur.fetchone()
+print("current_date", row[0], type(row[0]))
+print("current_timestamp", row[1], type(row[1]))
+
 
 ```
 
-
-
+## 常用语句
+```sql
+--  创建索引
+CREATE INDEX index_name ON table_name;
+--  单列索引
+CREATE INDEX index_name ON table_name (column_name);
+--  唯一索引
+CREATE UNIQUE INDEX index_name on table_name (column_name);
+-- 组合索引
+CREATE INDEX index_name on table_name (column1, column2);
+-- 删除索引
+DROP INDEX index_name;
+-- 避免使用索引的情况
+-- 索引不应该使用在较小的表上。
+-- 索引不应该使用在有频繁的大批量的更新或插入操作的表上。
+-- 索引不应该使用在含有大量的 NULL 值的列上。
+-- 索引不应该使用在频繁操作的列上。
+```
+```sql
+-- 修改表结构
+-- 修改表名称
+ALTER TABLE old_table_name RENAME TO new_table_name;
+-- 添加字段
+ALTER TABLE table_name ADD COLUMN column_name Text; 
+-- 查询表结构
+PRAGMA TABLE_INFO (table_name);
+-- 修改表结构字段类型(SQLite 不支持)
+-- 不能删除一个已经存在的字段，或者更改一个已经存在的字段的名称、数据类型、限定符等等
+-- 替代方案，重建表
+--1.将表名改为临时表
+ALTER TABLE "Student" RENAME TO "_Student_old_20140409";
+--2.创建新表
+CREATE TABLE "Student" ("Id"  INTEGER PRIMARY KEY AUTOINCREMENT, "Name"  Text);
+--3.导入数据
+INSERT INTO "Student" ("Id", "Name") SELECT "Id", "Title" FROM "_Student_old_20140409";
+--4.更新sqlite_sequence
+UPDATE "sqlite_sequence" SET seq = 3 WHERE name = 'Student';
+-- 由于在Sqlite中使用自增长字段,引擎会自动产生一个sqlite_sequence表,
+-- 用于记录每个表的自增长字段的已使用的最大值，
+-- 所以要一起更新下。如果有没有设置自增长，则跳过此步骤。
+--5.删除临时表(可选)
+DROP TABLE _Student_old_20140409;
+```
 
