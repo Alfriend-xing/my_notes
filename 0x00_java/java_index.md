@@ -21,37 +21,37 @@
 6. [接口、抽象类](javanote/abstractinterface.md)
 7. [访问控制符](javanote/controlcharacter.md)
 8. [内部类](javanote/innerclass.md)
-9. Random、ArrayList、String、Arrays、Math
+9. [Random、ArrayList、String、Arrays、Number、Math](javanote/commonclass.md)
 
 ## 语言进阶
 
 ### 常用API
-1 Date、
-2 DateFormat、
-3 Calendar、
-4 System、
-5 StringBuilder
+1 [Date](javanote/date.md)
+2 [DateFormat](javanote/dateformat.md)
+3 [Calendar](javanote/calendar.md)
+4 [System](javanote/system.md)
+5 [StringBuffer StringBuilder](javanote/StringBuilder.md)
 
 ### 集合API
-1 Collection、
-2 泛型、
-3 List、
-4 Set、
-5 Collections、
-6 Map、
-7 HashMap
+1 [Collection](javanote/collection.md)
+2 [Map](javanote/map.md)
+3 [List](javanote/list.md)
+4 [Set](javanote/set.md)
+5 [Collections](javanote/Collections.md)
+6 [泛型](javanote/generics.md)
+7 [HashMap](javanote/hashmap.md)
 
 ### 异常
-1 异常体系、
-2 异常分类、
-3 声明抛出捕获异常、
-4 自定义异常
+1 [异常体系](javanote/exception.md)
+2 [异常分类](javanote/exceptionclass.md)
+3 [声明抛出捕获异常](javanote/trycatch.md)
+4 [自定义异常](javanote/defexception.md)
 
 ### 多线程
-1 线程概念、
+1 [线程概念](javanote/thread.md)
 2 线程同步、
 3 Lock、
-4 线程生命周期、
+4 [线程生命周期](javanote/threadlifetime.md)
 5 线程池
 
 ### Lambda表达式
@@ -184,6 +184,5 @@ git版本控制
 
 
 ---
-参考链接
-https://www.zhihu.com/question/56110328
+[目录参考链接](https://www.zhihu.com/question/56110328)
 
