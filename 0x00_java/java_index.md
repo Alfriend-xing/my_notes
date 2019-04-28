@@ -49,20 +49,20 @@
 
 ### 多线程
 1 [线程概念](javanote/thread.md)
-2 线程同步、
-3 Lock、
+2 [线程同步](javanote/threadsyn.md)
+3 [Lock](javanote/lock.md)
 4 [线程生命周期](javanote/threadlifetime.md)
-5 线程池
+5 [线程池](javanote/threadpool.md)
 
 ### Lambda表达式
-1 函数式思想概述、
+1 [函数式思想概述](javanote/lambda.md)
 2 Lambda标准格式、
 3 Lambda语法与注意事项
 
 ### IO流
-1 文件、
-2 字节流、字符流、
-3 转换流、高效流
+1 [文件](javanote/file.md)
+2 [字节流、字符流](javanote/strstream.md)
+3 [转换流、高效流](javanote/conversionstream.md)
 
 ### 网络编程
 1 网络编程三要素、
