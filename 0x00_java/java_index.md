@@ -67,10 +67,13 @@
 ### 网络编程
 1. [网络编程三要素](javanote/webpoint.md)
 2. [Socket原理机制](javanote/socket.md)
-3. UDP传输、
-4. TCP传输
+3. [UDP传输](javanote/udpsocket.md)
+4. [TCP传输](javanote/tcpsocket.md)
+1. [URL 处理](javanote/url.md)
+1. [发送邮件](javanote/mail.md)
 
 ### 新特性
+[link](https://www.twle.cn/l/yufei/java/java-basic-java8-new-features.html)
 1. 函数式接口、
 2. 方法引用、
 3. 函数式编程、

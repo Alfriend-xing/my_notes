@@ -40,7 +40,7 @@ multiprocessing.set_start_method(method)
 #设置子进程启动的方法，可选项'fork', 'spawn' or 'forkserver'
 ```
 >spawn
-> - 父进程启动一个新的python解释器进程。子进程将只继承运行进程对象run（）方法所需的资源
+> - 父进程启动一个新的python解释器进程。子进程将只继承运行进程对象run()方法所需的资源
 
 > fork
 > - 父进程的所有资源都由子进程继承，但无法创建孙进程

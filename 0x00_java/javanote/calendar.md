@@ -2,7 +2,7 @@
 - java.util.Calendar 类可以设置和获取日期数据的特定部分，在日期的这些部分加上或者减去值
 - Calendar 类实现了公历日历
 - GregorianCalendar 是 Calendar 类的一个具体实现
-- Calendar 的 getInstance（）方法返回一个默认用当前的语言环境和时区初始化的 GregorianCalendar 对象
+- Calendar 的 getInstance()方法返回一个默认用当前的语言环境和时区初始化的 GregorianCalendar 对象
 ```java
 Calendar c = Calendar.getInstance();//默认是当前日期
 
