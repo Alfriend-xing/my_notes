@@ -83,9 +83,9 @@
 
 ### mysql与jdbc
 1. mysql、
-2. jdbc、
-3. 连接池、
-4. JdbcTemplate
+2. [jdbc](javanote/jdbc.md)
+3. [连接池](javante/jdbcpool.md)
+4. [JdbcTemplate](javanote/JdbcTemplate.md)
 
 ### 前端技术
 1. html5、
@@ -101,8 +101,8 @@
 5. nginx安装、配置、部署
 
 ### 基础加强
-1. 反射、
-2. BeanUtils、
+1. [反射Reflection](javanote/Reflection.md)
+2. [BeanUtils](javanote/BeanUtils.md)
 3. 注解
 
 ### xml与jsoup
