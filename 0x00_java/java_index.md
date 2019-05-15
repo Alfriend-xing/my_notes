@@ -106,11 +106,10 @@
 3. [注解](javanote/annotation.md)
 
 ### xml与jsoup
-1. xml基本语法、
-2. 约束、
-3. jsoup概述、
-4. jsoup作用使用、
-5. xpath
+1. [xml基本语法](javanote/xml.md)
+2. [约束](javanote/xmlyueshu.md)
+3. [jsoup](javanote/jsoup.md)
+4. [xpath](javanote/xpath.md)
 
 ### servlet核心编程
 1. tomcat、
