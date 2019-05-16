@@ -129,7 +129,7 @@
 3. 常用命令、
 4. jedis
 
-### maven
+### [maven](javanote/maven.md)
 1. maven概念与作用、
 2. idea集成maven、
 3. maven常用命令、
