@@ -116,7 +116,7 @@
 1. [get,post](javanote/servlet.md)
 2. [request、response,异常，过滤器](javanote/servlet1.md)
 3. [cookie、session](javanote/servlet2.md)
-4. jsp、el、jstl
+4. [jsp、el、jstl](javanote/jsp.md)
 
 ### web异步开发
 1. jquery3、
