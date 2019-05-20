@@ -11,6 +11,7 @@ sBuffer.append(".com");
 System.out.println(sBuffer); 
 ```
 StringBuffer 方法
+
 方法|描述
 --|--
 public StringBuffer append(String s)|将指定的字符串追加到此字符序列
