@@ -8,6 +8,7 @@ System.out.println(ft.format(dNow));
 // Tue 2018.01.23 at 07:48:53 AM CST
 ```
 格式化符
+
 字母|描述|范例
 --|--|--
 G|纪元标记|AD
