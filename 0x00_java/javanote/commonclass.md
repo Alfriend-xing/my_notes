@@ -319,6 +319,7 @@ Integer x = 5;
 x =  x + 10;
 ```
 类方法
+
 方法|描述
 --|--
 xxxValue()|将 Number 对象转换为xxx数据类型的值并返回 Number.intValue()
