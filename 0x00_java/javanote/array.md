@@ -63,6 +63,7 @@ s[0][0] = new String("Good");
 // 然后再为其每个数组元素单独分配空间 s0=new String("Good") 等操作
 ```
 类方法
+
 方法|说明
 --|--
 public static int binarySearch(Object[] a, Object key)|用二分查找算法在给定数组中搜索给定值的对象(Byte,Int,double等)。数组在调用前必须排序好的。如果查找值包含在数组中，则返回搜索键的索引；否则返回 ( -(插入点) - 1)
