@@ -109,6 +109,7 @@ public class TestThread {
 Thread 类的方法
 
 Thread 类的一些重要方法
+
 方法|描述
 --|--
 public void start()|使该线程开始执行；Java虚拟机调用该线程的 run 方法
@@ -121,6 +122,7 @@ public void interrupt()|中断线程
 public final boolean isAlive()|测试线程是否处于活动状态
 
 Thread 类的静态方法
+
 方法描述|
 --|
 public static void yield()|
