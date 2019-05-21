@@ -84,7 +84,7 @@
 ### mysql与jdbc
 1. mysql、
 2. [jdbc](javanote/jdbc.md)
-3. [连接池](javante/jdbcpool.md)
+3. [连接池](javanote/jdbcpool.md)
 4. [JdbcTemplate](javanote/JdbcTemplate.md)
 
 ### 前端技术
