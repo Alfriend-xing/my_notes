@@ -7,7 +7,7 @@
 3. [变量](javanote/value.md)
 4. [数据类型](javanote/datatype.md)
 5. [运算符](javanote/operator.md)
-6. [方法](javanote/operator.md)
+6. [方法](javanote/function.md)
 7. [流程控制语句](javanote/processcontrol.md)
 8. IDEA使用
 9. [数组](javanote/array.md)
