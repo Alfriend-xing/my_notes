@@ -14,17 +14,17 @@
 
 6. [Accessing Relational Data using JDBC with Spring](md/JDBC_with_Spring.md)
 
-7. Uploading Files
+7. [Uploading Files]()
 
-8. Authenticating a User with LDAP 
+8. [Authenticating a User with LDAP ]()
 
-9.  Messaging with Redis
+9.  [Messaging with Redis]()
 
 10. Messaging with RabbitMQ
 
 11. Accessing Data with Neo4j
 
-12. Validating Form Input
+12. [Validating Form Input]()
 
 13. Building a RESTful Web Service with Spring Boot Actuator
 

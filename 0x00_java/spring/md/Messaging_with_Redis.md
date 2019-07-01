@@ -1,1 +1,172 @@
-# 
+# 与redis传递消息
+
+## 目标
+构建web应用，实现订阅和消息推送功能
+>redis不只是一个NoSQL数据库，也可以充当一个消息发布系统
+
+## 路径和配置
+`mkdir -p src/main/java/hello`
+
+`pom.xml`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.springframework</groupId>
+    <artifactId>gs-messaging-redis</artifactId>
+    <version>0.1.0</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.6.RELEASE</version>
+    </parent>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+```
+
+## 安装redis 
+- 下载 `https://redis.io/download`
+- 启动 `redis-server`
+
+## 创建redis消息接收器
+`src/main/java/hello/Receiver.java`
+```java
+package hello;
+
+import java.util.concurrent.CountDownLatch;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Receiver {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
+
+    private CountDownLatch latch;
+
+    @Autowired
+    public Receiver(CountDownLatch latch) {
+        this.latch = latch;
+    }
+
+    public void receiveMessage(String message) {
+        LOGGER.info("Received <" + message + ">");
+        latch.countDown();
+    }
+}
+```
+- 该类的构造函数接收一个 `CountDownLatch` 对象，该对象是一个用于线程同步的寄存器锁，类似于信号量锁， `countDown` 方法会将对象内部计数器减去1,当计数器归零时，其他地方调用的 `await` 方法不再阻塞线程。这里使用是为了通知发送消息的线程，表示接收器已经收到消息。使发送线程进行后续操作。
+
+## 注册监听器并且发送消息
+
+`src/main/java/hello/Application.java`
+```java
+package hello;
+
+import java.util.concurrent.CountDownLatch;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+
+@SpringBootApplication
+public class Application {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+
+	@Bean
+	RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+			MessageListenerAdapter listenerAdapter) {
+
+		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+		container.setConnectionFactory(connectionFactory);
+		container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+
+		return container;
+	}
+
+	@Bean
+	MessageListenerAdapter listenerAdapter(Receiver receiver) {
+		return new MessageListenerAdapter(receiver, "receiveMessage");
+	}
+
+	@Bean
+	Receiver receiver(CountDownLatch latch) {
+		return new Receiver(latch);
+	}
+
+	@Bean
+	CountDownLatch latch() {
+		return new CountDownLatch(1);
+	}
+
+	@Bean
+	StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
+		return new StringRedisTemplate(connectionFactory);
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+
+		ApplicationContext ctx = SpringApplication.run(Application.class, args);
+
+		StringRedisTemplate template = ctx.getBean(StringRedisTemplate.class);
+		CountDownLatch latch = ctx.getBean(CountDownLatch.class);
+
+		LOGGER.info("Sending message...");
+		template.convertAndSend("chat", "Hello from Redis!");
+
+		latch.await();
+
+		System.exit(0);
+	}
+}
+```
+- `container` 注册一个消息监听容器，并设置 `connectionFactory` 和 `listenerAdapter` ，使其监听 chart 话题
+- `listenerAdapter` 返回一个消息接收适配器，设置了接收消息的处理方法 `receiver`
+- `receiver` 接收一个 `CountDownLatch` 对象，初始化并返回一个接收器实例
+- `latch` 初始化并返回一个值为1的 `CountDownLatch` 对象
+- `template` 接收一个 `connectionFactory` 连接对象，初始化并返回一个 `StringRedisTemplate` 对象，该对象实现了redis中键值为string的常用方法
+- `main` 方法，创建程序上下文对象，创建redis模板对象，创建计数器对象 `CountDownLatch`，使用redis模板类的发送方法向 chat 话题发送一条消息，使用计数器的await阻塞主线程
+
+## 运行
+- `./mvnw spring-boot:run`
+- `./mvnw clean package`
+- `java -jar target/gs-messaging-redis-0.1.0.jar`
+
+>我不明白这消息是在哪里接收到的
