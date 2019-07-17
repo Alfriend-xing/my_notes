@@ -1,5 +1,8 @@
 ## 学习计划
 
+- spring boot
+- react
+
 ### 数据可视化
 - antv
   - g2
