@@ -9,7 +9,6 @@
 ### 混合开发 hybrid app
 >"小项目、业务逻辑不复杂可以用用。和原生开发比起来。确实有性能差距"
 - Cordova+ionic
-- React-Native
 - material-ui
 - vant
 
