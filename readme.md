@@ -4,7 +4,7 @@
 - react
 
 ### 数据可视化
-- [Dagre](https://github.com/dagrejs)
+- [JGraph](https://github.com/jgraph/mxgraph)
 - [antv](https://antv.alipay.com/zh-cn/index.html)
   - g2
   - g6
