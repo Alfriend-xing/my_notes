@@ -32,7 +32,7 @@
 
 15. [Creating a Batch Service]()
 
-16. [Securing a Web Application]()
+16. [Securing a Web Application](md/16.md)
 
 17. [Building a Hypermedia-Driven RESTful Web Service]()
 
