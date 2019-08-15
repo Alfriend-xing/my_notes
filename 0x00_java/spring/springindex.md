@@ -58,7 +58,7 @@
 
 28. [Building an Application with Spring Boot](md/28.md)
 
-29. [Using WebSocket to build an interactive web application]
+29. [Using WebSocket to build an interactive web application](md/29.md)
 
 30. [Working a Getting Started guide with STS]
 
@@ -66,13 +66,13 @@
 
 32. [Consuming a RESTful Web Service with rest.js]
 
-33. [Consuming a RESTful Web Service with jQuery]
+33. [Consuming a RESTful Web Service with jQuery](md/33.md)
 
-34. [Enabling Cross Origin Requests for a RESTful Web Service]
+34. [Enabling Cross Origin Requests for a RESTful Web Service](md/34.md)
 
 35. [Consuming a SOAP web service]
 
-36. [Accessing JPA Data with REST]
+36. [Accessing JPA Data with REST](md/36.md)
 
 37. [Accessing Neo4j Data with REST]
 
@@ -104,9 +104,9 @@
 
 51. [Testing the Web Layer]
 
-52. [Accessing data with MySQL]
+52. [Accessing data with MySQL](md/52.md)
 
-53. [Creating a Multi Module Project]
+53. [Creating a Multi Module Project](md/53.md)
 
 54. [Creating API Documentation with Restdocs]
 
