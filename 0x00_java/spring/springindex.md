@@ -108,11 +108,11 @@
 
 53. [Creating a Multi Module Project](md/53.md)
 
-54. [Creating API Documentation with Restdocs]
+54. [Creating API Documentation with Restdocs](md/54.md)
 
 55. [Messaging with Google Cloud Pub/Sub]
 
-56. [Building a Reactive RESTful Web Service]
+56. [Building a Reactive RESTful Web Service](md/56.md)
 
 57. [Consumer Driven Contracts]
 
