@@ -141,6 +141,7 @@
 1. [映射文件](javanote/mybatismap.md)
 1. [动态 SQL](javanote/mybatissql.md)
 1. [Java API](javanote/mybatisapi.md)
+2. [例子](javanote/mybatisexample.md)
 
 ### spring
 -. [sprin sringmvc springboot区别](javanote/springfmb.md)
