@@ -7,10 +7,10 @@
 - [高级装配](md/3.md)
 - [面向切面的Spring](md/4.md)
 - [构建Spring Web应用程序](md/5.md)
-- [渲染Web视图]
-- [Spring MVC的高级技术]
+- [渲染Web视图](md/6.md)
+- [Spring MVC的高级技术](md/7.md)
 - [使用Spring Web Flow]
-- [保护Web应用]
+- [保护Web应用](md/9.md)
 
 内容摘录自`spring.io/guides`
 
