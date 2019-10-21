@@ -43,7 +43,7 @@ public AccountInfo findByAccountId(Long accountId);
 - 该接口不需要实现，spring会自动实现
 - 声明持久层的接口，该接口继承 Repository，Repository 是一个标记型接口，它不包含任何方法，在接口中声明需要的业务方法。Spring Data 将根据给定的策略来为其生成实现代码。
 - CrudRepository也是一个可供继承的持久层接口，与Repository不同的是他自带十个增删改查方法，不用自行定义，缺点是一旦继承该接口，所有数据的常用操作都会暴露出来
-- PagingAndSortingRepository 是另一个可供继承的持久层接口，他继承自CrudRepository，特点是自带分页查询和排序方法，很少直接使用，而是在自己声明的方法参数列表最后增加一个 Pageable 或 Sort 类型的参数，用于指定分页或排序信息
+- PagingAndSortingRepository 是另一个可供继承的持久层接口，他继承自CrudRepository，特点是自带分页查询和排序方法，自带方法很少直接使用，而是在自己声明的方法参数列表最后增加一个 Pageable 或 Sort 类型的参数，用于指定分页或排序信息。想要实现分页功能需要继承PagingAndSortingRepository或JpaRepository接口
 - JpaRepository继承自PagingAndSortingRepository ，提供了 flush()，saveAndFlush()，deleteInBatch() 等方法
 
 
@@ -199,12 +199,174 @@ public List<AccountInfo> findTop5();
 
 pass
 
+### CrudRepository自带方法
+
+```java
+// 保存实体对象
+<S extends T> S save(S entity)
+
+// 保存所有给定的实体对象
+<S extends T> Iterable<S> saveAll(Iterable<S> entities)
+
+// 按照id查询，无结果返回空
+Optional<T> findById(ID id)
+
+// 判断id是否存在，返回true false
+boolean existsById(ID id)
+
+// 返回所有实体对象
+Iterable<T> findAll()
+
+// 指定多个id查询
+Iterable<T> findAllById(Iterable<ID> ids)
+
+// 返回可获取的实体数量
+long count()
+
+// 删除指定id的实体
+void deleteById(ID id)
+
+// 删除指定实体
+void delete(T entity)
+
+// 删除指定的多个实体
+void deleteAll(Iterable<? extends T> entities)
+
+// 删除表中所有数据
+void deleteAll()
+```
+
+### Repository 定义方法参考
+
+
+```java
+// 自定义方法中的find，get，read是等效的，在源码中这样匹配
+private static final String QUERY_PATTERN = "find|read|get|query|stream";
+
+// remove和delete也是等效的，同理
+private static final String DELETE_PATTERN = "delete|remove";
+```
+
+```java
+// 多条件查询
+findByUsernameAndPassword(String user, Striang pwd)；findByUsernameOrAddress(String user, String addr)；
+findByUsernameNot(String user)；
+
+// 多值查询，方法的参数可以是 Collection 类型，也可以是数组或者不定长参数；
+findByUsernameIn(Collection userList);
+findByUsernameNotIn(Collection userList);
+
+// 查询字段所有不同的值
+List<People> findDistinctByNameNotIn(List<String> names);
+
+@Query("SELECT DISTINCT a.city FROM Address a")
+List<String> findDistinctCity();
+
+// 查询指定字段
+String findNamebyId(Integer id);
+
+// 更新
+int updateUserNameById(String name,Integer id);
+
+// 删除
+void deleteByKey(String key);
+
+// 范围
+findBySalaryBetween(int max, int min)；
+
+// 比较
+findBySalaryLessThan(int max)；
+findBySalaryGreaterThan(int min)；
+
+// 统计
+long countByName(String name);
+
+// 查询空值和非空值
+findByUsernameIsNull()；
+findByUsernameIsNotNull()；
+
+// 查询字段存在
+boolean existsByName(String name);
+
+// 模糊查询
+findByUsernameLike(String user)；
+findByUsernameNotLike(String user)；
+
+// 排序
+findByUsernameOrderBySalaryAsc(String user)；
+findByUsernameOrderBySalaryDesc(String user)；
+findAllByOrderByIdAsc();  // ByOrderBy而不是OrderBy
+findTop10ByOrderByLevelDesc();
+findByOrderByProgDateAscStartTimeAsc();
+// 调用时使用排序参数排序
+repository.findAll(Sort.by(Sort.Direction.ASC, "seatNumber"));
+
+// 分页查询
+// 想要实现分页功能需要继承PagingAndSortingRepository或JpaRepository接口
+// 首先是接口自带的方法
+findAll(Pageable pageable)
+findAll(Sort sort)
+// 自定义方法
+List<Product> findAllByPrice(double price, Pageable pageable);
+
+// 分页排序
+Page<Passenger> page = repository.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.ASC, "seatNumber")));
+
+
+
+```
+
+### 分页查询
+
+需要两步
+- 创建或获取一个PageRequest对象，他是Pageable接口的实现
+- 将PageRequest对象作为参数传入至继承了`PagingAndSortingRepository` 或 `JpaRepository` 接口的repository方法中，我们可以通过传入页面编号和页面信息条数来创建PageRequest对象。
+
+```java
+Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
+ 
+Pageable secondPageWithFiveElements = PageRequest.of(1, 5);
+
+PageRequest.of(0, 1, Sort.by(Sort.Direction.ASC, "seatNumber"));
+
+Page<Product> allProducts = productRepository.findAll(firstPageWithTwoElements);
+ 
+List<Product> allTenDollarProducts = 
+  productRepository.findAllByPrice(10, secondPageWithFiveElements);
+
+```
+- 通过将Pageable类型的实例传递给repository方法，实现分页查询。
+- 自定义的repository方法可以指定返回的类型为`Page<T>`,  `Slice<T>` 或 `List<T>`
+- 自带的findAll默认返回 `Page<T>` 对象 findAll(Pageable pageable) 
+- 返回的`Page<T>`实例会统计总页数，为了减去统计页数的开销，可以指定用`Slice<T>` 或 `List<T>`返回结果;使用Slice会自动查询是否有下一页，但至少不会统计总页数。
+
+```java
+// 分页排序
+
+// 只排序
+Page<Product> allProductsSortedByName = productRepository.findAll(Sort.by("name"));
+
+// 将排序细节传入PageRequest对象即可实现分页排序
+Pageable sortedByName = 
+  PageRequest.of(0, 3, Sort.by("name"));
+ 
+Pageable sortedByPriceDesc = 
+  PageRequest.of(0, 3, Sort.by("price").descending());
+ 
+// 多字段排序方法
+Pageable sortedByPriceDescNameAsc = 
+  PageRequest.of(0, 5, Sort.by("price").descending().and(Sort.by("name")));
+
+```
 
 参考地址
 
 - https://www.ibm.com/developerworks/cn/opensource/os-cn-spring-jpa/index.html
 - https://blog.csdn.net/qq_36666651/article/details/80719259
-
+- https://stackoverflow.com/questions/39869707/what-is-the-difference-between-query-methods-find-by-read-by-query-by-and-get
+- https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html
+- https://www.baeldung.com/spring-data-sorting
+- https://www.baeldung.com/spring-data-jpa-pagination-sorting
 
 
 
