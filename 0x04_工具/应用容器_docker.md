@@ -147,7 +147,12 @@ docker run -it -v /test:/soft centos /bin/bash
 # 前面是主机路径，后面是容器路径，容器内会自动创建目录
 ```
 
+## docker harbor
 
+- https://www.jianshu.com/p/6fcacc2020d5
+- https://juejin.im/post/5d9c2f25f265da5bbb1e3de5
+
+## docker compose
 
 
 
