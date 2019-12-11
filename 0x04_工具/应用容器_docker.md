@@ -80,7 +80,10 @@ docker kill [容器id/容器名]  # 杀死容器
 docker rename [容器id/容器名]  # 重命名容器
 docker rm [容器id/容器名]    # 删除容器
 docker logs [容器id/容器名]  # 查看日志
+
 docker exec -it [容器id/容器名] /bin/bash  # 进入容器
+# exec表示在正在运行的容器中执行命令，这里为/bin/bash
+# -it表示为执行的命令创建一个交互终端，使上面exec执行的bash可以交互
 
 # 列出本机正在运行的容器
 docker container ls #container是容器管理工具，ls是命令之一
@@ -147,12 +150,214 @@ docker run -it -v /test:/soft centos /bin/bash
 # 前面是主机路径，后面是容器路径，容器内会自动创建目录
 ```
 
+## dockerfile
+
+Docker可以通过Dockerfile自动生成自定义镜像。dockerfile文件内容包括 构建镜像所基于的镜像版本，向镜像中添加本地文件或网络文件，需要执行的命令(包括下载，编译，安装和一些文件操作等)，目录挂载，容器主进程的启动命令。
+
+```dockerfile
+# 指定基础镜像
+FROM <image>
+
+# 设置环境变量，使用时加$
+ENV <key> <value>
+ENV <key1>=<value1> <key2>=<value2>
+ENV VERSION=1.0 DEBUG=on NAME="Happy Feet"
+
+# 执行命令
+RUN buildDeps='gcc libc6-dev make' \
+         && apt-get update \
+         && apt-get install -y $buildDeps \
+         && wget -O redis.tar.gz "http://download.redis.io/releases/redis-3.2.5.tar.gz" \
+         && mkdir -p /usr/src/redis \
+         && tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
+         && make -C /usr/src/redis \
+         && make -C /usr/src/redis install \
+         && rm -rf /var/lib/apt/lists/* \
+         && rm redis.tar.gz \
+         && rm -r /usr/src/redis \
+         && apt-get purge -y --auto-remove $buildDeps
+
+# 复制文本
+COPY <源路径>... <目标路径>
+
+# 高级复制文件，<源路径> 可以是一个 URL
+ADD <源路径>... <目标路径>
+
+# 构建参数
+ARG user1=someuser
+ARG buildno=1
+# 构建时可使用--build-arg <参数名>=<值> 覆盖默认值
+# 构建参数和ENV的效果一样，都是设置环境变量。不同的是，ARG所设置的构建环境的环境变量在将来容器运行时是不会存在的。
+
+# 定义匿名卷，指定后容器向这些路径的写入操作会进入外部匿名卷中
+# 挂载外部指定卷使用 docker run -d -v mydata:/data xxxx 命令
+VOLUME ["<路径1>", "<路径2>"...]
+VOLUME <路径>
+
+# 暴露端口
+# 仅声明容器打算使用的端口，并不会自动在宿主进行端口映射。
+EXPOSE <端口1> [<端口2>...] 
+
+# 指定工作目录
+WORKDIR <工作目录路径>
+RUN cd /app
+RUN echo "hello" > world.txt
+# 两次run不在一个环境内，可以使用WORKDIR。
+
+# 指定当前用户
+# 这个用户必须是事先建立好的，否则无法切换。
+USER <用户名>
+
+# 健康检查
+HEALTHCHECK [选项] CMD <命令> 
+  可选选项
+    --interval=<间隔> ：两次健康检查的间隔，默认为 30 秒；
+    --timeout=<时长> ：健康检查命令运行超时时间，如果超过这个时间，本次健康检查就被视为失败，默认 30 秒；
+    --retries=<次数> ：当连续失败指定次数后，则将容器状态视为 unhealthy ，默认3次。
+    --start-period=DURATION：启动时间，默认 0s。为需要启动的容器提供了初始化的时间段， 在这个时间段内如果检查失败， 则不会记录失败次数。 如果在启动时间内成功执行了健康检查， 则容器将被视为已经启动， 如果在启动时间内再次出现检查失败， 则会记录失败次数。
+  命令可以是shell脚本的命令或者exec数组，命令返回值为：0 health状态，1 unhealth状态，2 reserved状态
+# 禁止从父镜像继承的HEALTHCHECK生效 
+HEALTHCHECK NODE 
+
+# 容器启动命令
+# 未定义ENTRYPOINT时，启动容器命令后接的参数会覆盖cmd执行
+CMD ["nginx", "-g", "daemon off;"]
+
+# 入口点,指定容器启动的参数
+# 如果指定了ENTRYPOINT指令，CMD就不再是直接运行了，而是将CMD的内容作为参数传递给ENTRYPOINT指令。如果启动容器命令后接了参数会覆盖cmd传给ENTRYPOINT。
+# 覆盖ENTRYPOINT使用 docker run的参数-entrypoint
+ENTRYPOINT shell 或 exec数组
+
+```
+
+构建镜像
+
+- 当前目录：`docker build .`
+- 指定路径：`docker build -f /path/to/a/Dockerfile .`
+- 其他命令：`-m` `-t` `--cpus` 等
+
+## docker compose
+
+Compose 是 docker 提供的一个命令行工具，用来定义和运行由多个容器组成的应用。
+
+- linux平台安装 
+
+```shell
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# $(uname -s) -s表示Linux
+# $(uname -m) -m表示x86_64
+
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+
+```yaml
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+    volumes:
+     - .:/code
+  redis:
+    image: "redis:alpine"
+```
+- version表示配置文件使用的语法版本
+- services定义了若干个服务，每个服务需要启动一个容器，这里有两个服务web和redis
+- build表示构建镜像使用的dockerfile路径
+- ports表示端口映射
+- volumes表示挂载卷，冒号前为外部路径(相对，绝对)，之后为容器内路径(绝对)
+- image表示使用的镜像
+
+
+指定dcoker-compose文件 
+- `docker-compose -f docker-compose-dev.yml up`
+
+dcoker-compose命令
+- 启动多个容器 `docker-compose up -d --scale redis=2`
+- 删除现有的容器并且重新创建新的容器 `docker-compose up -d --force-recreate`
+- 合并多个compose文件 `docker-compose -f docker-compose-base.yml -f docker-compose-dev.yml config`
+  - config 命令不会执行真正的操作，而是显示 docker-compose 程序解析到的配置文件内容
+
+### 使用 network
+
+Docker 提供的 network 功能能够对容器进行网络上的隔离
+
+```yaml
+version: '3'
+services:
+  proxy:
+    image: nginx
+    ports:
+      - "80:80"
+    networks:
+      - frantnet
+  webapp:
+    build: .
+    networks:
+      - frantnet
+      - endnet
+  redis:
+    image: redis
+    networks:
+      - endnet
+networks:
+  frantnet:
+  endnet:
+```
+
+在yml文件中设置新的自定义网段,二级参数是在compose中自己设置的网段别名,这个别名可供services设置使用
+
+```yaml
+networks:
+  networktest2:
+     driver: bridge
+     ipam:
+       driver: default
+       config:
+          -
+           subnet: 192.168.100.0/24
+```
+
+
+### 使用数据卷
+
+```yaml
+version: "{{ site.compose_file_v2 }}"
+services:
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+    volumes:
+     - .:/code
+    networks:
+      - front-tier
+      - back-tier
+  redis:
+    image: redis
+    volumes:
+      - redis-data:/var/lib/redis
+    networks:
+      - back-tier
+volumes:
+  redis-data:
+    driver: local
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+```
+
+
+
+
 ## docker harbor
 
 - https://www.jianshu.com/p/6fcacc2020d5
 - https://juejin.im/post/5d9c2f25f265da5bbb1e3de5
-
-## docker compose
 
 
 
