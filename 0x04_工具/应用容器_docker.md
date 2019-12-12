@@ -257,9 +257,11 @@ services:
   web:
     build: .
     ports:
-     - "5000:5000"
+      - "5000:5000"
     volumes:
-     - .:/code
+      - .:/code
+    environment:
+      FLASK_ENV: development
   redis:
     image: "redis:alpine"
 ```
@@ -268,6 +270,7 @@ services:
 - build表示构建镜像使用的dockerfile路径
 - ports表示端口映射
 - volumes表示挂载卷，冒号前为外部路径(相对，绝对)，之后为容器内路径(绝对)
+- environment表示环境变量
 - image表示使用的镜像
 
 
@@ -275,10 +278,37 @@ services:
 - `docker-compose -f docker-compose-dev.yml up`
 
 dcoker-compose命令
-- 启动多个容器 `docker-compose up -d --scale redis=2`
+- 启动 `docker-compose up`
+- 启动多个相同服务 `docker-compose up -d --scale redis=2`
+- 单独启动部分服务 `docker-compose run <service> [<service>] ...`
+- 停止所有服务 `docker-compose stop`
+- 停止所有服务并删除容器和创建的镜像 `docker-compose down`，加 `--volumes` 同时删除挂载文件;如果是前端运行直接按 `ctrl+c`
 - 删除现有的容器并且重新创建新的容器 `docker-compose up -d --force-recreate`
+- 重启服务 `docker-compose restart [<service>]`
 - 合并多个compose文件 `docker-compose -f docker-compose-base.yml -f docker-compose-dev.yml config`
   - config 命令不会执行真正的操作，而是显示 docker-compose 程序解析到的配置文件内容
+
+[常用命令](https://www.cnblogs.com/moxiaoan/p/9299404.html)
+
+```shell
+docker-compose up -d nginx  构建建启动nignx容器
+docker-compose exec nginx bash  登录到nginx容器中
+docker-compose down 删除所有nginx容器,镜像
+docker-compose ps 显示所有容器
+docker-compose restart nginx  重新启动nginx容器
+docker-compose run --no-deps --rm php-fpm php -v  在php-fpm中不启动关联容器，并容器执行php -v 执行完成后删除容器
+docker-compose build nginx  构建镜像 。 
+docker-compose build --no-cache nginx 不带缓存的构建。
+docker-compose logs  nginx  查看nginx的日志 
+docker-compose logs -f nginx  查看nginx的实时日志
+docker-compose config  -q 验证（docker-compose.yml）文件配置，当配置正确时，不输出任何内容，当文件配置错误，输出错误信息。 
+docker-compose events --json nginx  以json的形式输出nginx的docker日志
+docker-compose pause nginx    暂停nignx容器
+docker-compose unpause nginx  恢复ningx容器
+docker-compose rm nginx 删除容器（删除前必须关闭容器）
+docker-compose stop nginx 停止nignx容器
+docker-compose start nginx   启动nignx容器
+```
 
 ### 使用 network
 
@@ -354,7 +384,9 @@ networks:
 
 
 
-## docker harbor
+## 私有镜像库`harbor` 
+
+用于管理docker镜像
 
 - https://www.jianshu.com/p/6fcacc2020d5
 - https://juejin.im/post/5d9c2f25f265da5bbb1e3de5
