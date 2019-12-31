@@ -5,6 +5,7 @@
 - redis
 - mysql
 - mongodb
+- H2
 
 
 
