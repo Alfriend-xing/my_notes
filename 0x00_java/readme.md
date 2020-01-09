@@ -11,6 +11,7 @@
 - [HandlerExceptionResolver统一异常处理](https://www.jianshu.com/p/da311ae29908)
 - [Spring Security 前后端分离登录，非法请求直接返回 JSON](https://juejin.im/post/5d9e7b77e51d457822796eb5)
 - [spring-security（二十四）CSRF ](https://www.iteye.com/blog/fengyilin-2413232)
+- [往Spring Security里的authentication中加入自定义的内容](https://www.nbucedog.com/blog/article/8)
 - []()
 
 
