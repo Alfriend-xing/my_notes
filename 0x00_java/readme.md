@@ -15,6 +15,7 @@
 - [Java 之泛型通配符 ? extends T 与 ? super T 解惑](https://segmentfault.com/a/1190000008423240)
 - [Spring Security学习目录](https://www.jianshu.com/p/6c87b8304fc9)
 - [eclipse自动补全的设置](https://www.cnblogs.com/dongritengfei/archive/2010/09/09/1822258.html)
+- [eclipse代码自动提示设置、如何配置eclipse的代码自动提示功能（同时解决自动补全变量名的问题）](https://www.cnblogs.com/firstcsharp/p/4025689.html)
 - []()
 
 
