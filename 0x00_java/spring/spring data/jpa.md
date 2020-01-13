@@ -27,6 +27,7 @@ private String userName;
 - @Column 用来声明实体属性的表字段的定义。默认的实体每个属性都对应了表的一个字段。字段的名称默认和属性名称保持一致（并不一定相等）。字段的类型根据实体属性类型自动推断。这里主要是声明了字符字段的长度。如果不这么声明，则系统会采用 255 作为该字段的长度
 - [@Table注解介绍](https://fanlychie.github.io/post/jpa-table-annotation.html)
 - [@Column注解介绍](https://fanlychie.github.io/post/jpa-column-annotation.html)
+- [索引优化](https://blog.csdn.net/Abysscarry/article/details/80792876)
 
 
 ## 业务层接口 
