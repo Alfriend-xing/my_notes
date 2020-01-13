@@ -175,6 +175,8 @@ public int increaseSalary(int after, int before);
 
 ### 通过调用 JPA 命名查询语句创建查询
 
+- [JPA之使用JPQL语句进行增删改查](https://www.jianshu.com/p/06beda1a0831)
+
 命名查询是 JPA 提供的一种将查询语句从方法体中独立出来，以供多个方法共用的功能。在代码中使用 @NamedQuery（或 @NamedNativeQuery）定义好查询语句，唯一要做的就是为该语句命名时，需要满足”DomainClass.methodName()”的命名规则。
 
 ```java
