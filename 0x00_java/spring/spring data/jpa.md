@@ -9,7 +9,7 @@
 @Table(name = "t_accountinfo") 
 public class AccountInfo implements Serializable { 
 @Id
-@GeneratedValue
+GeneratedValue(strategy = GenerationType.AUTO)
 private Long accountId; 
 
 @Column(name = "name", columnDefinition = "varchar(255) not null")
@@ -22,8 +22,8 @@ private String userName;
 ```
 - @Entity 是一个必选的注解，声明这个类对应了一个数据库表。
 - @Table(name = "t_accountinfo") 是一个可选的注解。声明了数据库实体对应的表信息。包括表名称、索引信息等。这里声明这个实体类对应的表名是 t_accountinfo。如果没有指定，则表名和实体的名称保持一致。
-- @Id 注解声明了实体唯一标识对应的属性。
-- @GeneratedValue提供了主键的生成策略。@GeneratedValue注解有两个属性,分别是strategy和generator。(strategy表示主键生成策略，generator声明了该主键生成器的名称)
+- @Id 标注用于声明一个实体类的属性映射为数据库的主键列。该属性通常置于属性声明语句之前，可与声明语句同行，也可写在单独行上。 
+- @GeneratedValue 用于标注主键的生成策略。@GeneratedValue注解有两个属性,分别是strategy和generator。(strategy表示主键生成策略，generator声明了该主键生成器的名称)。strategy 属性默认情况下，JPA 自动选择一个最适合底层数据库的主键生成策略：SqlServer对应identity，MySQL 对应 auto increment。 (GenerationType.IDENTITY/GenerationType.AUTO(默认))
 - @Column 用来声明实体属性的表字段的定义。默认的实体每个属性都对应了表的一个字段。字段的名称默认和属性名称保持一致（并不一定相等）。字段的类型根据实体属性类型自动推断。这里主要是声明了字符字段的长度。如果不这么声明，则系统会采用 255 作为该字段的长度
 
 ## 业务层接口 
