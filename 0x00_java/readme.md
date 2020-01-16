@@ -18,7 +18,9 @@
 - [eclipse代码自动提示设置、如何配置eclipse的代码自动提示功能（同时解决自动补全变量名的问题）](https://www.cnblogs.com/firstcsharp/p/4025689.html)
 - [使用Spring JPA中Page、Pageable接口和Sort类完成分页排序](https://www.cnblogs.com/softidea/p/10376568.html)
 - [Java日志框架：logback详解](https://www.cnblogs.com/xrq730/p/8628945.html)
+- [@Data注解 与 lombok](https://www.jianshu.com/p/c1ee7e4247bf)
 - []()
+
 
 
 
