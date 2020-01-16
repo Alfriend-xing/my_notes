@@ -19,6 +19,8 @@
 - [使用Spring JPA中Page、Pageable接口和Sort类完成分页排序](https://www.cnblogs.com/softidea/p/10376568.html)
 - [Java日志框架：logback详解](https://www.cnblogs.com/xrq730/p/8628945.html)
 - [@Data注解 与 lombok](https://www.jianshu.com/p/c1ee7e4247bf)
+- [ThreadPoolTaskScheduler的使用，定时任务开启与关闭](https://blog.csdn.net/qq_32711309/article/details/84944534)
+- [ SpringBoot定时任务升级篇（动态添加修改删除定时任务）](https://www.cnblogs.com/zt007/p/8954096.html)
 - []()
 
 
