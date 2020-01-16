@@ -21,7 +21,9 @@
 - [@Data注解 与 lombok](https://www.jianshu.com/p/c1ee7e4247bf)
 - [ThreadPoolTaskScheduler的使用，定时任务开启与关闭](https://blog.csdn.net/qq_32711309/article/details/84944534)
 - [ SpringBoot定时任务升级篇（动态添加修改删除定时任务）](https://www.cnblogs.com/zt007/p/8954096.html)
+- [Java多线程Thread/Runnable/Callable之间的区别](https://blog.csdn.net/KingCat666/article/details/77651024)
 - []()
+
 
 
 
