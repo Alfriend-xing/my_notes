@@ -154,34 +154,139 @@ class Solution {
 }
 ```
 ---
-## 
+## 腐烂的橘子
 
 ### 题目
 
 ```
+在给定的网格中，每个单元格可以有以下三个值之一：
+
+值 0 代表空单元格；
+值 1 代表新鲜橘子；
+值 2 代表腐烂的橘子。
+每分钟，任何与腐烂的橘子（在 4 个正方向上）相邻的新鲜橘子都会腐烂。
+
+返回直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 -1。
+
+示例 1：
+x11  xx1  xxx  xxx  xxx
+110  x10  xx0  xx0  xx0
+011  011  011  0x1  0xx
+
+输入：[[2,1,1],[1,1,0],[0,1,1]]
+输出：4
+示例 2：
+
+输入：[[2,1,1],[0,1,1],[1,0,1]]
+输出：-1
+解释：左下角的橘子（第 2 行， 第 0 列）永远不会腐烂，因为腐烂只会发生在 4 个正向上。
+示例 3：
+
+输入：[[0,2]]
+输出：0
+解释：因为 0 分钟时已经没有新鲜橘子了，所以答案就是 0 。
 ```
 
 ### 思路
 
+遍历:提取所有腐烂橘子到队列中，遍历队列，取出头部的腐烂橘子，遍历四个方向，有新鲜橘子让其腐烂加入队尾，将位置和当前时间记录至map。当队列中没有未处理的腐烂橘子时停止遍历，最后判断有无新鲜橘子，返回-1或经历时间。
+
 ### 代码
 
 ```java
+class Solution {
+    int[] dr = new int[]{-1, 0, 1, 0};
+    int[] dc = new int[]{0, -1, 0, 1};
+
+    public int orangesRotting(int[][] grid) {
+        int R = grid.length, C = grid[0].length;
+
+        // queue : all starting cells with rotten oranges
+        Queue<Integer> queue = new ArrayDeque();
+        Map<Integer, Integer> depth = new HashMap();
+        for (int r = 0; r < R; ++r)
+            for (int c = 0; c < C; ++c)
+                if (grid[r][c] == 2) {
+                    int code = r * C + c;
+                    queue.add(code);
+                    depth.put(code, 0);
+                }
+
+        int ans = 0;
+        while (!queue.isEmpty()) {
+            int code = queue.remove();
+            int r = code / C, c = code % C;
+            for (int k = 0; k < 4; ++k) {
+                int nr = r + dr[k];
+                int nc = c + dc[k];
+                if (0 <= nr && nr < R && 0 <= nc && nc < C && grid[nr][nc] == 1) {
+                    grid[nr][nc] = 2;
+                    int ncode = nr * C + nc;
+                    queue.add(ncode);
+                    depth.put(ncode, depth.get(code) + 1);
+                    ans = depth.get(ncode);
+                }
+            }
+        }
+
+        for (int[] row: grid)
+            for (int v: row)
+                if (v == 1)
+                    return -1;
+        return ans;
+
+    }
+}
 
 ```
 ---
-## 
+## 二叉树的堂兄弟节点
 
 ### 题目
 
 ```
+在二叉树中，根节点位于深度 0 处，每个深度为 k 的节点的子节点位于深度 k+1 处。
+如果二叉树的两个节点深度相同，但父节点不同，则它们是一对堂兄弟节点。
+我们给出了具有唯一值的二叉树的根节点 root，以及树中两个不同节点的值 x 和 y。
+只有与值 x 和 y 对应的节点是堂兄弟节点时，才返回 true。否则，返回 false。
+
+输入：root = [1,2,3,4], x = 4, y = 3
+输出：false
+
+输入：root = [1,2,3,null,4,null,5], x = 5, y = 4
+输出：true
+
+输入：root = [1,2,3,null,4], x = 2, y = 3
+输出：false
 ```
 
 ### 思路
 
+深度优先遍历：我们用深度优先遍历标记每一个节点，对于每一个节点 node，它的父亲为 par，深度为 d，我们将其记录到 Hashmap 中：parent[node.val] = par 与 depth\[node.val] = d。
+
 ### 代码
 
 ```java
+class Solution {
+    Map<Integer, Integer> depth;
+    Map<Integer, TreeNode> parent;
 
+    public boolean isCousins(TreeNode root, int x, int y) {
+        depth = new HashMap();
+        parent = new HashMap();
+        dfs(root, null);
+        return (depth.get(x) == depth.get(y) && parent.get(x) != parent.get(y));
+    }
+
+    public void dfs(TreeNode node, TreeNode par) {
+        if (node != null) {
+            depth.put(node.val, par != null ? 1 + depth.get(par.val) : 0);
+            parent.put(node.val, par);
+            dfs(node.left, node);
+            dfs(node.right, node);
+        }
+    }
+}
 ```
 ---
 ## 
