@@ -1,11 +1,5 @@
-## todo
 
-- 掌握hibernate与MyBatis操作常见数据库的方法
-- elasticsearch
-- redis
-- mysql
-- mongodb
-- H2
+> 技术笔记，不看会忘
 
 
 
