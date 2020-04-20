@@ -90,6 +90,10 @@ docker container ls --all
 docker ps   #ps只是列出正在运行的容器
 docker ps -a
 
+# 查看容器使用的资源
+docker stats
+docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
+
 # 从容器拷贝到主机当前目录('.')
 docker container cp [containID]:[/path/to/file] .
 # 从主机复制到容器 
