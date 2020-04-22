@@ -9,7 +9,7 @@ pip install supervisor
 ```shell
 echo_supervisord_conf > /etc/supervisord.conf
 ```
->如果生成到其他目录下，启动`supervisord` 需要加 `-c DIR`
+>如果生成到其他目录下，启动`supervisord` 和 `supervisorctl` 需要加 `-c DIR`
 
 ## 运行命令
 ```shell
@@ -30,9 +30,20 @@ status [<name> <name>]
 #结束进程
 stop [<name> <name>]    
 stop all
+restart pname    # 重启 pname 程序
+reread    ＃ 读取有更新（增加）的配置文件，不会启动新添加的程序
+update    ＃ 重启配置文件修改过的程序
 pid #获取supervisord进程id
 pid <name>  #获取指定子进程id
 pid all     #获取所有子进程id
+
+supervisorctl不进入交互环境
+$ supervisorctl status
+$ supervisorctl stop usercenter
+$ supervisorctl start usercenter
+$ supervisorctl restart usercenter
+$ supervisorctl reread
+$ supervisorctl update
 ```
 
 ## 配置文件
@@ -90,5 +101,55 @@ programs=bar,baz    #指定包含的进程
 priority=999
 ```
 
+## 开机自启
+
+[参考链接](https://www.jianshu.com/p/03619bf7d7f5)
+
+### ubuntu
+
+```sh
+vi /etc/rc.local
+# 在exit 0 之前加入以下命令
+/usr/local/bin/supervisord
+# 修改rc.local权限
+chmod +x /etc/rc.local
+
+```
+### centos
+
+新建文件supervisord.service
+
+```sh
+#supervisord.service
+
+[Unit] 
+Description=Supervisor daemon
+
+[Service] 
+Type=forking 
+ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf 
+ExecStop=/usr/bin/supervisorctl shutdown 
+ExecReload=/usr/bin/supervisorctl reload 
+KillMode=process 
+Restart=on-failure 
+RestartSec=42s
+
+[Install] 
+WantedBy=multi-user.target
+```
+将文件拷贝到/usr/lib/systemd/system/
+
+`cp supervisord.service /usr/lib/systemd/system/`
+
+启动服务
+
+`systemctl enable supervisord`
+
+验证一下是否为开机启动
+
+`systemctl is-enabled supervisord`
+
+
 ---
+
 [supervisord官网](http://supervisord.org)
