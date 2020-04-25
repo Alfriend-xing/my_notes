@@ -45,8 +45,11 @@ git reset HEAD <file>
 git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区
 
 删除文件
-git rm test.md
-git commit -m "remove test.md"
+git rm # 同时从工作区和索引中删除文件。即本地的文件也被删除了。
+git rm --cached # 从索引中删除文件。但是本地文件还存在，只是不希望这个文件被版本控制，可以在gitignore文件变更后搭配使用
+git rm -r mydir # 删除文件夹
+git rm test.md  # 删除文件
+git commit -m "remove test.md"  # 上述操作最后要执行git commit才真正提交到git仓库
 ```
 ## 远程仓库
 ```shell
