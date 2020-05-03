@@ -1,5 +1,36 @@
 ## 书签
 
+
+- [浅谈Array和ArrayList的区别 - 林夕不只是承诺 - 博客园](https://www.cnblogs.com/liulin1187740947/p/9164870.html)
+- [java创建线程的三种方式及其对比_Java_longshengguoji的专栏-CSDN博客](https://blog.csdn.net/longshengguoji/article/details/41126119)
+- [Java结束线程的三种方法_Java_小小本科生成长之路-CSDN博客](https://blog.csdn.net/xu__cg/article/details/52831127)
+- [线程创建的四种方式_Java_m0_37840000的博客-CSDN博客](https://blog.csdn.net/m0_37840000/article/details/79756932?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task)
+- [线程池那些事之Spring集成 - 简书](https://www.jianshu.com/p/3561d925816f)
+- [多个线程间共享数据的几种方式_Java_Marvel__Dead 胡艺宝的博客-CSDN博客](https://blog.csdn.net/Marvel__Dead/article/details/78770481)
+- [Java多线程 - 各种线程锁 - 简书](https://www.jianshu.com/p/fa084227c96b)
+- [java 中的锁 -- 偏向锁、轻量级锁、自旋锁、重量级锁_Java_zqz_zqz的博客-CSDN博客](https://blog.csdn.net/zqz_zqz/article/details/70233767)
+- [彻底理解ReentrantLock - 掘金](https://juejin.im/post/5aeb0a8b518825673a2066f0)
+- [ThreadLocal使用、场景、原理_数据库_格色情调的博客-CSDN博客](https://blog.csdn.net/liuhaiabc/article/details/78077529)
+- [https://blog.csdn.net/qq_34039315/article/details/78549311](Java并发编程75道面试题及答案——稳了_Java_乌枭的博客-CSDN博客)
+- [https://www.cnblogs.com/hapjin/p/5492619.html](JAVA多线程之线程间的通信方式 - hapjin - 博客园)
+- [https://www.cnblogs.com/xinzhao/p/5644175.html](HashMap和HashTable到底哪不同？ - 程序员赵鑫 - 博客园)
+
+---
+
+- [Spring中@Transactional事务回滚（含实例详细讲解，附源码）_Java_小宝鸽-CSDN博客](https://blog.csdn.net/u013142781/article/details/50421904)
+- [JPA学习(三):java持久化查询语言JPQL--介绍、基础语法_网络_白衣-CSDN博客](https://blog.csdn.net/timo1160139211/article/details/72935260)
+- [Pageable Entity Manager : Pageable ResultSet « JPA « Java](http://www.java2s.com/Code/Java/JPA/PageableEntityManager.htm)
+- [Spring Data JPA: 为单个Repository添加自定义方法-java,spring,jpa 相关文章-天码营](https://www.tianmaying.com/tutorial/spring-jpa-custom-single)
+- [JPA EntityManager详解 - 简书](https://www.jianshu.com/p/091360c47e6b)
+- [SpringBoot系列 - 集成Hibernate | 飞污熊博客](https://www.xncoding.com/2017/07/03/spring/sb-hibernate.html)
+- [JPA - EntityManager详解_Java_小小默：进无止境-CSDN博客](https://blog.csdn.net/J080624/article/details/78751411)
+- [@Component, @Repository, @Service的区别_Java_fansili的博客-CSDN博客](https://blog.csdn.net/fansili/article/details/78740877)
+- [@Repository注解的作用_Java_wqh0830的博客-CSDN博客](https://blog.csdn.net/wqh0830/article/details/96109587)
+- [@Resource注解用法_Java_u010502101的博客-CSDN博客 ](https://blog.csdn.net/u010502101/article/details/78950045)
+- [https://www.cnblogs.com/xdp-gacl/p/3622275.html](Java基础加强总结(一)——注解(Annotation) - 孤傲苍狼 - 博客园)
+- [https://blog.csdn.net/fz13768884254/article/details/83538709](@Aspect 注解使用详解_Java_fz13768884254的博客-CSDN博客)
+- [https://www.cnblogs.com/yanyansha/archive/2011/08/30/2159265.html](研读代码必须掌握的Eclipse快捷键 - 墨海 - 博客园)
+- [https://www.cnblogs.com/morethink/p/8028664.html](SpringMVC 参数绑定注解解析 - morethink - 博客园)
 - [在Spring Boot中使用Spring Security实现权限控制](https://blog.csdn.net/u012702547/article/details/54319508)
 - [Spring Boot初始化数据库和导入数据](https://www.jianshu.com/p/743894b9e2fe)
 - [使用 JPA 及 UserDetailsService](https://github.com/waylau/spring-security-tutorial/blob/master/docs/jpa-userdetailsservice.md)
