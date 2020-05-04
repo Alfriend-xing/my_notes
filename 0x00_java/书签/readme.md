@@ -57,7 +57,9 @@
 - [Spring Boot @Autowired 注入失效问题](https://www.jianshu.com/p/f3c67ca457e6)
 - [JAVA中Long与Integer比较容易犯的错误](https://blog.csdn.net/is_zhoufeng/article/details/38443507)
 - [java枚举使用详解](https://www.cnblogs.com/linjiqin/archive/2011/02/11/1951632.html)
+- [Pageable 前台传参 - 简书](https://www.jianshu.com/p/67249c7b81d4)
 - []()
+
 
 
 
