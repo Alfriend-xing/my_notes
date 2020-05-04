@@ -1,4 +1,4 @@
-# spring
+# spring in action 阅读笔记
 
 内容摘录自spring in action
 
@@ -18,7 +18,3 @@
 - 使用NoSQL数据库
 - 缓存数据
 - 保护方法应用
-
-内容摘录自`spring.io/guides`
-
-- [spring guides](spring_guides/spring_guides_index.md)
