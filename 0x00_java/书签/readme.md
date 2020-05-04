@@ -59,6 +59,7 @@
 - [java枚举使用详解](https://www.cnblogs.com/linjiqin/archive/2011/02/11/1951632.html)
 - [Pageable 前台传参 - 简书](https://www.jianshu.com/p/67249c7b81d4)
 - [Spring框架的@Valid注解 - 贾树丙 - 博客园](https://www.cnblogs.com/acm-bingzi/p/spring_valid.html)
+- [spring boot validator 验证 - 简书](https://www.jianshu.com/p/2a9bd377e563)
 - []()
 
 
