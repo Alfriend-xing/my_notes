@@ -60,6 +60,11 @@
 - [Pageable 前台传参 - 简书](https://www.jianshu.com/p/67249c7b81d4)
 - [Spring框架的@Valid注解 - 贾树丙 - 博客园](https://www.cnblogs.com/acm-bingzi/p/spring_valid.html)
 - [spring boot validator 验证 - 简书](https://www.jianshu.com/p/2a9bd377e563)
+- [Mybatis入门看这一篇就够了](https://juejin.im/post/5aa5c6fb5188255587232e5a)
+- [SpringBoot 快速整合Mybatis](http://www.spring4all.com/article/175)
+- [MyBatis Generator 超详细配置](https://juejin.im/post/5db694e3e51d452a2e25ba45)
+- [让MyBatis Generator产生的Mapper更简洁](https://my.oschina.net/wangmengjun/blog/784697)
+- [java枚举使用详解 - Ruthless - 博客园 ](https://www.cnblogs.com/linjiqin/archive/2011/02/11/1951632.html)
 - []()
 
 
