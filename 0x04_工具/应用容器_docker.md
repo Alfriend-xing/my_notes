@@ -274,7 +274,10 @@ services:
 - build表示构建镜像使用的dockerfile路径
 - image表示使用已存在的镜像，如果同时指定build和images会构建镜像并且把镜像命名为image后面的那个名字
 - ports表示端口映射
-- volumes表示挂载卷，冒号前为外部路径(相对，绝对)，之后为容器内路径(绝对)
+- volumes表示挂载卷，冒号前为外部路径(相对，绝对)，之后为容器内路径(绝对)，注意是路径不是文件
+  - `HOST:CONTAINER:ro` 表示对于容器来说，数据卷是只读的，这样可以有效保护宿主机的文件系统
+  - `HOST:CONTAINER:z` 使绑定挂载的内容可以在多个容器之间共享
+  - `HOST:CONTAINER:Z` 绑定挂载的内容私有且不共享，会导致主机无法操作
 - environment表示环境变量
 
 
