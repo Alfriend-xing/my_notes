@@ -259,6 +259,7 @@ version: '3'
 services:
   web:
     build: .
+    image: xximage:0.1.13
     ports:
       - "5000:5000"
     volumes:
@@ -271,10 +272,10 @@ services:
 - version表示配置文件使用的语法版本
 - services定义了若干个服务，每个服务需要启动一个容器，这里有两个服务web和redis
 - build表示构建镜像使用的dockerfile路径
+- image表示使用已存在的镜像，如果同时指定build和images会构建镜像并且把镜像命名为image后面的那个名字
 - ports表示端口映射
 - volumes表示挂载卷，冒号前为外部路径(相对，绝对)，之后为容器内路径(绝对)
 - environment表示环境变量
-- image表示使用的镜像
 
 
 指定dcoker-compose文件 
