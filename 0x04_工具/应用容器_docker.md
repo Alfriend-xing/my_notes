@@ -395,9 +395,27 @@ networks:
 
 用于管理docker镜像
 
-- https://www.jianshu.com/p/6fcacc2020d5
-- https://juejin.im/post/5d9c2f25f265da5bbb1e3de5
+- [docker安装配置Harbor](https://www.jianshu.com/p/6fcacc2020d5)
+- [Harbor私有镜像仓库无坑搭建](https://juejin.im/post/5d9c2f25f265da5bbb1e3de5)
+- [docker tag 详解](https://www.cnblogs.com/pzk7788/p/10180919.html)
 
+### 登陆
+
+下载证书至/etc/docker路径下
+
+`wget --ftp-user=xxxx --ftp-password=xxxx -r -nH -l0 ftp://host/certs.d -P /etc/docker`
+
+`docker login [ip/url]`
+
+### 给镜像打标签
+
+用于发布版本，打标签之后会根据标签生成新的镜像，原有镜像继续用于开发
+
+`docker tag dev_image:latest remotehost/project_a/dev_image:0.0.1`
+
+### 推送镜像到远程项目
+
+`docker push remotehost/project_a/dev_image:0.0.1`
 
 
 
