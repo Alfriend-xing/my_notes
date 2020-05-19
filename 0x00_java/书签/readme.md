@@ -65,7 +65,9 @@
 - [MyBatis Generator 超详细配置](https://juejin.im/post/5db694e3e51d452a2e25ba45)
 - [让MyBatis Generator产生的Mapper更简洁](https://my.oschina.net/wangmengjun/blog/784697)
 - [java枚举使用详解 - Ruthless - 博客园 ](https://www.cnblogs.com/linjiqin/archive/2011/02/11/1951632.html)
+- [@PropertySource和@ConfigurationProperties区别 - 掘金](https://juejin.im/post/5dca22bef265da4d2f31e251)
 - []()
+
 
 
 
