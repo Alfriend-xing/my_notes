@@ -122,5 +122,20 @@ logging.Formatter(fmt=None, datefmt=None, style='%')
 
 实例
 
+```python
+dirs = os.path.join(log_path,logger_name)
+if not os.path.exists(dirs):
+    os.makedirs(dirs)
+logger=logging.getLogger(logger_name)
+logger.setLevel(logging.DEBUG)
+streamHandler=logging.StreamHandler()
+fileHandler=logging.handlers.TimedRotatingFileHandler(dirs+'/%s.log'%logger_name, when='m',interval=1,
+                                                      backupCount=30, encoding='utf-8')
+streamHandler.setFormatter(formatter)
+fileHandler.setFormatter(formatter)
+logger.addHandler(streamHandler)
+logger.addHandler(fileHandler)
+```
+
 [Logging Cookbook](https://docs.python.org/3/howto/logging-cookbook.html)
 
