@@ -19,6 +19,9 @@ print(r.url)
 #Response 
 r.text #自动解码来自服务器的内容
 r.encoding #更改编码
+# r.encoding会用于将content解码为text，但如果返回的header中content-type没有指定编码，则会用默认的`ISO-8859-1`，推荐使用以下方法
+    r.encoding = r.apparent_encoding或r.encoding="utf-8"
+    print(r.text)
 r.content #对于非文本请求，以字节为单位访问响应正文
 #从二进制数据创建图片
 from PIL import Image
