@@ -66,6 +66,15 @@
 - [让MyBatis Generator产生的Mapper更简洁](https://my.oschina.net/wangmengjun/blog/784697)
 - [java枚举使用详解 - Ruthless - 博客园 ](https://www.cnblogs.com/linjiqin/archive/2011/02/11/1951632.html)
 - [@PropertySource和@ConfigurationProperties区别 - 掘金](https://juejin.im/post/5dca22bef265da4d2f31e251)
+- [精通SpringBoot——第三篇：详解WebMvcConfigurer接口-云栖社区-阿里云](https://yq.aliyun.com/articles/617307)
+- [Spring Boot配置接口 WebMvcConfigurer_java_fmwind的专栏-CSDN博客](https://blog.csdn.net/fmwind/article/details/81235401)
+- [【Spring】浅谈spring为什么推荐使用构造器注入 - joemsu - 博客园](https://www.cnblogs.com/joemsu/p/7688307.html)
+- [java - spring构造注入不需要加@Autowired？ - SegmentFault 思否](https://segmentfault.com/q/1010000019281201)
+- [为什么使用构造注入而不是Autowired - 简书](https://www.jianshu.com/p/25ace96321d2)
+- [spring boot 文件上传 - 简书](https://www.jianshu.com/p/1bad7a9cf03a)
+- [七、springBoot 简单优雅是实现文件上传和下载 - 掘金](https://juejin.im/post/5db6bdeae51d452a284c13c9)
+- [集合类中modCount字段的作用 - facelessvoidwang - 博客园](https://www.cnblogs.com/nevermorewang/p/7808197.html)
+- [Java的快速失败和安全失败 - .长卿 - 博客园](https://www.cnblogs.com/ygj0930/p/6543350.html)
 - []()
 
 
